@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">WeatherApiusingCoroutines</string>
+    <string name="search">Search</string>
+    <string name="refresh">Refresh</string>
+    <string name="date">Date</string>
+    <string name="feels_like">Feels Like</string>
+    <string name="humidity">Humidity</string>
+    <string name="current_temp">Current Temp</string>
+    <string name="high">High</string>
+    <string name="Low">Low</string>
+    <string name="et_city_hint">Enter Your City</string>
+</resources>
