@@ -2,7 +2,7 @@ package com.example.weatherapiusingcoroutines.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapiusingcoroutines.model.remote.Repository
+import com.example.weatherapiusingcoroutines.service.Repository
 
 class WeatherViewModelFactory constructor(private val repository: Repository) :
     ViewModelProvider.Factory {

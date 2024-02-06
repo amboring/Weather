@@ -1,4 +1,4 @@
-package com.example.weatherapiusingcoroutines.model.remote
+package com.example.weatherapiusingcoroutines.service
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

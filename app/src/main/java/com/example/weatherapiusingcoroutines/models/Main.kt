@@ -1,4 +1,4 @@
-package com.example.weatherapiusingcoroutines.model.remote.data
+package com.example.weatherapiusingcoroutines.models
 
 data class Main(
     val feels_like: Double,
