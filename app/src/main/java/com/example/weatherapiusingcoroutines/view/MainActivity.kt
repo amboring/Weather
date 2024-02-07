@@ -12,7 +12,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.al.weatherapiusingcoroutines.databinding.ActivityMainBinding
-import com.example.weatherapiusingcoroutines.models.WeatherForDisplay
+import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
 import com.example.weatherapiusingcoroutines.service.ApiService
 import com.example.weatherapiusingcoroutines.service.Repository
 import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModel

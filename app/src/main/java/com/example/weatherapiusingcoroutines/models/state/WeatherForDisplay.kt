@@ -1,4 +1,4 @@
-package com.example.weatherapiusingcoroutines.models
+package com.example.weatherapiusingcoroutines.models.state
 
 data class WeatherForDisplay(
     val date: String?,

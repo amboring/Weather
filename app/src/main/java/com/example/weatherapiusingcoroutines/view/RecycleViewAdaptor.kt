@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.al.weatherapiusingcoroutines.databinding.ItemWeatherBinding
-import com.example.weatherapiusingcoroutines.models.WeatherForDisplay
+import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
 
 
 class RecycleViewAdaptor(private val weathers: List<WeatherForDisplay>) :

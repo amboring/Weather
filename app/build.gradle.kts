@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.weatherapiusingcoroutines"
         minSdk = 23
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -52,9 +52,19 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.dagger:hilt-android:2.44")
+
+    //todo: to be removed
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
     kapt("com.google.dagger:hilt-android-compiler:2.44")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha13")
+
+    //navigate
+    val nav_version = "2.7.6"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")

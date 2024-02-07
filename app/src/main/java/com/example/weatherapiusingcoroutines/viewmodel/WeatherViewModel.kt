@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapiusingcoroutines.service.Repository
-import com.example.weatherapiusingcoroutines.models.WeatherForDisplay
+import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

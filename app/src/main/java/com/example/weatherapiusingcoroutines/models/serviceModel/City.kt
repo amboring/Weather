@@ -1,4 +1,4 @@
-package com.example.weatherapiusingcoroutines.models
+package com.example.weatherapiusingcoroutines.models.serviceModel
 
 data class City(
     val coord: Coord,

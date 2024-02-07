@@ -1,6 +1,6 @@
 package com.example.weatherapiusingcoroutines.service
 
-import com.example.weatherapiusingcoroutines.models.WeatherResponse
+import com.example.weatherapiusingcoroutines.models.serviceModel.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
