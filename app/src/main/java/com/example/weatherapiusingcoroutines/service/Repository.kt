@@ -1,6 +1,6 @@
-package com.example.weatherapiusingcoroutines.model.remote
+package com.example.weatherapiusingcoroutines.service
 
-import com.example.weatherapiusingcoroutines.model.remote.data.WeatherForDisplay
+import com.example.weatherapiusingcoroutines.models.WeatherForDisplay
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,14 +15,17 @@ class Repository(private val apiService: ApiService) {
         if (response.isSuccessful) {
             val list = response.body()?.list
             list?.forEach { it ->
-                val dateTime = Date(it.dt)
                 val format = SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.US)
-                val date = format.format(dateTime)
-                val feelsLike = it.main.feels_like - KCDifference
-                val humidity = it.main.humidity
-                val temp = it.main.temp - KCDifference
-                val tempMax = it.main.temp_max - KCDifference
-                val tempMin = it.main.temp_min - KCDifference
+                val date = it?.dt?.let {
+                    val dateTime = Date(it)
+                    format.format(dateTime)
+                }.orEmpty()
+
+                val feelsLike = it?.main?.feels_like?.let { it - KCDifference}
+                val humidity = it?.main?.humidity
+                val temp = it?.main?.temp?.let {  it - KCDifference}
+                val tempMax = it?.main?.temp_max?.let {  it - KCDifference}
+                val tempMin = it?.main?.temp_min?.let {  it - KCDifference}
                 result.add(
                     WeatherForDisplay(date, feelsLike, humidity, temp, tempMax, tempMin)
                 )

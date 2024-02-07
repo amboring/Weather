@@ -3,8 +3,8 @@ package com.example.weatherapiusingcoroutines.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapiusingcoroutines.databinding.ItemWeatherBinding
-import com.example.weatherapiusingcoroutines.model.remote.data.WeatherForDisplay
+import com.al.weatherapiusingcoroutines.databinding.ItemWeatherBinding
+import com.example.weatherapiusingcoroutines.models.WeatherForDisplay
 
 
 class RecycleViewAdaptor(private val weathers: List<WeatherForDisplay>) :
@@ -31,11 +31,11 @@ class WeatherItemHolder(
 
     fun bind(weather: WeatherForDisplay) {
         binding.tvDate.text = weather.date
-        binding.tvFeelsLike.text = "${weather.feels_like.toInt()} C"
+        binding.tvFeelsLike.text = "${weather.feels_like?.toInt()} C"
         binding.tvHumidity.text = weather.humidity.toString()
-        binding.tvTemp.text ="${weather.temp.toInt()} C"
-        binding.tvTempMax.text = "${weather.temp_max.toInt()} C"
-        binding.tvTempMin.text = "${weather.temp_min.toInt()} C"
+        binding.tvTemp.text ="${weather.temp?.toInt()} C"
+        binding.tvTempMax.text = "${weather.temp_max?.toInt()} C"
+        binding.tvTempMin.text = "${weather.temp_min?.toInt()} C"
 
     }
 }

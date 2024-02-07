@@ -2,19 +2,19 @@ package com.example.weatherapiusingcoroutines.view
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherapiusingcoroutines.databinding.ActivityMainBinding
-import com.example.weatherapiusingcoroutines.model.remote.ApiService
-import com.example.weatherapiusingcoroutines.model.remote.Repository
-import com.example.weatherapiusingcoroutines.model.remote.data.WeatherForDisplay
+import com.al.weatherapiusingcoroutines.databinding.ActivityMainBinding
+import com.example.weatherapiusingcoroutines.models.WeatherForDisplay
+import com.example.weatherapiusingcoroutines.service.ApiService
+import com.example.weatherapiusingcoroutines.service.Repository
 import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModel
 import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModelFactory
 
@@ -62,9 +62,11 @@ class MainActivity : AppCompatActivity() {
     private fun setUpObservers() {
         weatherViewModel.weatherLiveData.observe(this) {
             setResult(it)
+            Log.i("alalal","$it")
         }
 
         weatherViewModel.error.observe(this) {
+            Log.i("alalal",it)
             binding.recyclerView.adapter = null
             binding.progressBar.visibility = View.GONE
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
@@ -79,8 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    fun setResult(weathers: List<WeatherForDisplay>) {
+    private fun setResult(weathers: List<WeatherForDisplay>) {
         binding.recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         listAdapter = RecycleViewAdaptor(weathers)

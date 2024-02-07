@@ -1,10 +1,11 @@
 package com.example.weatherapiusingcoroutines.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapiusingcoroutines.model.remote.Repository
-import com.example.weatherapiusingcoroutines.model.remote.data.WeatherForDisplay
+import com.example.weatherapiusingcoroutines.service.Repository
+import com.example.weatherapiusingcoroutines.models.WeatherForDisplay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -14,8 +15,7 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
     val processing = MutableLiveData<Boolean>()
 
     fun loadWeather(city: String) {
-        viewModelScope.launch(Dispatchers.IO)
-        {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 processing.postValue(true)
                 val list = repository.getWeather(city)
@@ -27,7 +27,8 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
                 processing.postValue(false)
 
             } catch (e: Exception) {
-                error.postValue("Technical error, please try again later.")
+                Log.i("alalal",e.message.orEmpty())
+                error.postValue(e.message)
                 e.printStackTrace()
                 processing.postValue(false)
             }
