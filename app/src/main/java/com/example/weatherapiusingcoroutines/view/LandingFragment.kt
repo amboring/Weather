@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.al.weatherapiusingcoroutines.R
 import com.al.weatherapiusingcoroutines.databinding.FragmentLayoutBinding
-import com.example.weatherapiusingcoroutines.viewmodel.LandingViewModel
+import com.example.weatherapiusingcoroutines.di.ViewModelFactory
+import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModel
+import javax.inject.Inject
 
 class LandingFragment: Fragment(R.layout.fragment_layout){
 
@@ -18,9 +20,12 @@ class LandingFragment: Fragment(R.layout.fragment_layout){
     private var _fragmentBinding: FragmentLayoutBinding? = null
     private val fragmentBinding: FragmentLayoutBinding get() = _fragmentBinding!!
 
-//    private val landingViewModel:LandingViewModel by lazy {
-//        ViewModelProvider(this, viewModelFactory)[LandingViewModel::class.java]
-//    }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val weatherViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[WeatherViewModel::class.java]
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

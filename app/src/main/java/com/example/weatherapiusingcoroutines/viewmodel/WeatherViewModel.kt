@@ -8,8 +8,9 @@ import com.example.weatherapiusingcoroutines.service.Repository
 import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WeatherViewModel(private val repository: Repository) : ViewModel() {
+class WeatherViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
     val weatherLiveData = MutableLiveData<List<WeatherForDisplay>>()
     val error = MutableLiveData<String>()
     val processing = MutableLiveData<Boolean>()

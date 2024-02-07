@@ -1,8 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    id ("kotlin-kapt")
 }
 android {
     namespace = "com.al.weatherapiusingcoroutines"
@@ -51,12 +50,17 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.dagger:hilt-android:2.44")
+
+    //dagger
+    val dagger_version = "2.48"
+    implementation ("com.google.dagger:dagger:$dagger_version")
+    kapt ("com.google.dagger:dagger-compiler:$dagger_version")
+    compileOnly ("org.glassfish:javax.annotation:10.0-b28")
 
     //todo: to be removed
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha13")
 
     //navigate
@@ -100,8 +104,4 @@ dependencies {
     implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
 
-}
-
-kapt {
-    correctErrorTypes = true
 }

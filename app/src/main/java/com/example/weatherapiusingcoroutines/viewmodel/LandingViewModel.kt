@@ -10,8 +10,9 @@ import com.example.weatherapiusingcoroutines.models.state.WeatherState
 import com.example.weatherapiusingcoroutines.service.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LandingViewModel(private val repository: Repository):ViewModel() {
+class LandingViewModel @Inject constructor(private val repository: Repository):ViewModel() {
     private val _weatherLiveData:MutableLiveData<WeatherState> = MutableLiveData()
     val weatherLiveData: LiveData<WeatherState> =_weatherLiveData
 

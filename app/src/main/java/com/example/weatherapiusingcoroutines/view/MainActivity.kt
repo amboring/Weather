@@ -12,27 +12,40 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.al.weatherapiusingcoroutines.databinding.ActivityMainBinding
+import com.example.weatherapiusingcoroutines.di.ViewModelFactory
+import com.example.weatherapiusingcoroutines.di.component.DaggerApplicationComponent
+import com.example.weatherapiusingcoroutines.di.component.DaggerViewComponent
+import com.example.weatherapiusingcoroutines.di.module.ActivityModule
+import com.example.weatherapiusingcoroutines.di.module.ApplicationModule
 import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
-import com.example.weatherapiusingcoroutines.service.ApiService
 import com.example.weatherapiusingcoroutines.service.Repository
 import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModel
 import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModelFactory
+import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var weatherViewModel: WeatherViewModel
-    private lateinit var weatherViewModelFactory: WeatherViewModelFactory
     private lateinit var listAdapter: RecycleViewAdaptor
 
+    @Inject
+    lateinit var  repository: Repository
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val weatherViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[WeatherViewModel::class.java]
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
+        DaggerViewComponent.builder()
+            .applicationModule(ApplicationModule(application))
+            .build()
+            .inject(this)
         setContentView(binding.root)
 
-        weatherViewModelFactory = WeatherViewModelFactory(Repository(ApiService.getInstance()))
-        weatherViewModel =
-            ViewModelProvider(this, weatherViewModelFactory)[WeatherViewModel::class.java]
         binding.btSearch.setOnClickListener { searchWeather() }
         binding.btRefresh.setOnClickListener { searchWeather() }
         setUpObservers()

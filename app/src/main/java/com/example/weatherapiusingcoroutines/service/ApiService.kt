@@ -8,8 +8,4 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("forecast?")
     suspend fun getWeather(@Query("q")city:String,@Query("appid")id:String): Response<WeatherResponse>
-
-    companion object {
-        fun getInstance(): ApiService = ApiClient.retrofit.create(ApiService::class.java)
-    }
 }
