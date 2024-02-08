@@ -40,7 +40,6 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        //todo: tobe removed
         dataBinding = true
         compose = true
     }
@@ -58,10 +57,6 @@ dependencies {
     implementation("com.google.dagger:dagger:$dagger_version")
     kapt("com.google.dagger:dagger-compiler:$dagger_version")
     compileOnly("org.glassfish:javax.annotation:10.0-b28")
-
-    //todo: to be removed
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-
 
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha13")
 
@@ -92,8 +87,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
-    //todo: choose one for this app
-    // for RxJava
+    //RxJava
     implementation("io.reactivex.rxjava2:rxjava:2.2.7")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 

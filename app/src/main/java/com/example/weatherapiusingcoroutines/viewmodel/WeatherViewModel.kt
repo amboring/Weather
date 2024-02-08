@@ -8,6 +8,7 @@ import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
 import com.example.weatherapiusingcoroutines.service.Repository
 import com.example.weatherapiusingcoroutines.util.DatastoreManager
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +20,12 @@ class WeatherViewModel @Inject constructor(
     val error = MutableLiveData<String>()
     val processing = MutableLiveData<Boolean>()
 
+    fun getLastSearchedWeather(){
+        processing.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            loadWeather(datastoreManager.getUserLatestSearch().firstOrNull() ?: "")
+        }
+    }
     fun loadWeather(city: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -35,7 +42,6 @@ class WeatherViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.i("alalal", e.message.orEmpty())
                 error.postValue(e.message)
-                e.printStackTrace()
                 processing.postValue(false)
             }
         }

@@ -27,7 +27,7 @@ fun HasWeatherPage(weather: LandingWeather, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
         Text(
             text = weather.location,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(CenterHorizontally),
             style = FontConfiguration.headline1
         )
         AsyncImage(
@@ -35,19 +35,19 @@ fun HasWeatherPage(weather: LandingWeather, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .height(120.dp)
                 .width(120.dp)
-                .align(Alignment.CenterHorizontally),
+                .align(CenterHorizontally),
             contentDescription = stringResource(id = R.string.weather_icon)
         )
         weather.temperature?.temp?.let {
             Text(
                 text = "$it",
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier.align(CenterHorizontally),
                 style = FontConfiguration.headline1
             )
         }
         Text(
             text = weather.weather[0].description,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(CenterHorizontally),
             style = FontConfiguration.headline3
         )
         Row(
@@ -55,14 +55,14 @@ fun HasWeatherPage(weather: LandingWeather, modifier: Modifier = Modifier) {
                 .align(CenterHorizontally)
                 .padding(20.dp)
         ) {
-            weather.temperature?.temp_max?.let {
+            weather.temperature?.tempMax?.let {
                 Text(
                     text = "H:$it",
                     style = FontConfiguration.headline3,
                 )
             }
             Spacer(modifier = Modifier.width(50.dp))
-            weather.temperature?.temp_min?.let {
+            weather.temperature?.tempMin?.let {
                 Text(
                     text = "L:$it",
                     style = FontConfiguration.headline3

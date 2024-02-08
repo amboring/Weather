@@ -30,7 +30,7 @@ class Repository(private val apiService: ApiService) {
     }
 
     suspend fun getWeatherList(city: String): List<WeatherForDisplay> {
-        if (city.isNullOrBlank()) {
+        if (city.isBlank()) {
             return listOf()
         }
 

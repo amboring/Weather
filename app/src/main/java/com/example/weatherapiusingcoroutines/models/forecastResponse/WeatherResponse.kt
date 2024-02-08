@@ -1,4 +1,4 @@
-package com.example.weatherapiusingcoroutines.models.serviceModel
+package com.example.weatherapiusingcoroutines.models.forecastResponse
 
 data class WeatherResponse(
     val city: City?,

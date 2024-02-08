@@ -45,7 +45,7 @@ class LandingViewModel @Inject constructor(
         }
     }
 
-    fun getWeather(city: String) {
+    private fun getWeather(city: String) {
         Log.i("alalal", "getWeather $city ")
 
         _weatherLiveData.postValue(WeatherState.Loading)

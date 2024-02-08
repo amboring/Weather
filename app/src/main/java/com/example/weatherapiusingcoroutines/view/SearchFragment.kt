@@ -45,6 +45,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.backButton.setOnClickListener { findNavController().navigateUp() }
         binding.clearButton.setOnClickListener { binding.etCityInput.setText("") }
         setUpObservers()
+        weatherViewModel.getLastSearchedWeather()
         return binding.root
     }
 
