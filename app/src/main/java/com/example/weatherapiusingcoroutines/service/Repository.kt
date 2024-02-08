@@ -39,7 +39,7 @@ class Repository(private val apiService: ApiService) {
         if (response.isSuccessful) {
             val list = response.body()?.list
             list?.forEach { it ->
-                val format = SimpleDateFormat("MM/dd/yyyy HH:mm:ss ", Locale.US)
+                val format = SimpleDateFormat("HH:mm:ss ", Locale.US)
                 val date = it?.dt?.let {
                     val dateTime = Date(it)
                     format.format(dateTime)
