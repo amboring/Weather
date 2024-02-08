@@ -1,6 +1,5 @@
 package com.example.weatherapiusingcoroutines.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +19,7 @@ class LandingViewModel @Inject constructor(
     private val _weatherLiveData: MutableLiveData<WeatherState> = MutableLiveData()
     val weatherLiveData: LiveData<WeatherState> = _weatherLiveData
 
-    fun getDefaultLocation(lat: Double, lon: Double) {
+    fun getDefaultLocationWeather(lat: Double, lon: Double) {
         _weatherLiveData.postValue(WeatherState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -29,7 +28,6 @@ class LandingViewModel @Inject constructor(
                     _weatherLiveData.postValue(WeatherState.Error("No data found."))
                     return@launch
                 }
-                //todo: get the right data
                 _weatherLiveData.postValue(WeatherState.HasWeather(weather))
 
             } catch (e: Exception) {
@@ -41,13 +39,13 @@ class LandingViewModel @Inject constructor(
 
     fun getLastSearchedWeather() {
         viewModelScope.launch(Dispatchers.IO) {
-            getWeather(datastoreManager.getUserLatestSearch().firstOrNull() ?: "")
+            datastoreManager.getUserLatestSearch().firstOrNull() ?.let{
+                if(it.isNotEmpty()) getWeather(it)
+            }
         }
     }
 
     private fun getWeather(city: String) {
-        Log.i("alalal", "getWeather $city ")
-
         _weatherLiveData.postValue(WeatherState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {

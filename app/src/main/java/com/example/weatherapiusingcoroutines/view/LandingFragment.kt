@@ -188,7 +188,7 @@ class LandingFragment : Fragment(R.layout.fragment_layout) {
     private fun startLocationUpdates() {
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                landingViewModel.getDefaultLocation(
+                landingViewModel.getDefaultLocationWeather(
                     locationResult.lastLocation?.latitude ?: 0.0,
                     locationResult.lastLocation?.longitude ?: 0.0
                 )

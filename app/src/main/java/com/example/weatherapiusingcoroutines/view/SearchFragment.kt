@@ -2,7 +2,6 @@ package com.example.weatherapiusingcoroutines.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +56,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         weatherViewModel.error.observe(viewLifecycleOwner) {
-            Log.i("alalal", it)
             binding.recyclerView.setContent { }
             binding.progressBar.visibility = View.GONE
             Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
@@ -74,7 +72,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun searchWeather() {
         val city = binding.etCityInput.text.toString().trim()
-        Log.i("alalal", city)
         weatherViewModel.loadWeather(city)
         if (city.isNotEmpty()) {
             weatherViewModel.loadWeather(city)

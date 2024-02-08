@@ -20,12 +20,13 @@ class WeatherViewModel @Inject constructor(
     val error = MutableLiveData<String>()
     val processing = MutableLiveData<Boolean>()
 
-    fun getLastSearchedWeather(){
+    fun getLastSearchedWeather() {
         processing.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             loadWeather(datastoreManager.getUserLatestSearch().firstOrNull() ?: "")
         }
     }
+
     fun loadWeather(city: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -34,9 +35,10 @@ class WeatherViewModel @Inject constructor(
                 if (list.isEmpty()) {
                     error.postValue("No data found.")
                     return@launch
+                } else {
+                    datastoreManager.setUserLatestSearch(city)
                 }
                 weatherLiveData.postValue(list)
-                datastoreManager.setUserLatestSearch(city)
                 processing.postValue(false)
 
             } catch (e: Exception) {
