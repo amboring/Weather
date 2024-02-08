@@ -1,103 +1,31 @@
 package com.example.weatherapiusingcoroutines.view
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import android.util.Log
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.NavHostFragment
+import com.al.weatherapiusingcoroutines.R
 import com.al.weatherapiusingcoroutines.databinding.ActivityMainBinding
-import com.example.weatherapiusingcoroutines.di.ViewModelFactory
 import com.example.weatherapiusingcoroutines.di.component.DaggerApplicationComponent
-import com.example.weatherapiusingcoroutines.di.component.DaggerViewComponent
-import com.example.weatherapiusingcoroutines.di.module.ActivityModule
 import com.example.weatherapiusingcoroutines.di.module.ApplicationModule
-import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
-import com.example.weatherapiusingcoroutines.service.Repository
-import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModel
-import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModelFactory
-import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var listAdapter: RecycleViewAdaptor
 
-    @Inject
-    lateinit var  repository: Repository
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val weatherViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[WeatherViewModel::class.java]
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        DaggerViewComponent.builder()
+        DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(application))
             .build()
             .inject(this)
         setContentView(binding.root)
 
-        binding.btSearch.setOnClickListener { searchWeather() }
-        binding.btRefresh.setOnClickListener { searchWeather() }
-        setUpObservers()
-    }
-
-    @SuppressLint("ServiceCast")
-    private fun searchWeather() {
-        val city = binding.etCityInput.text.toString().trim()
-        if (city.isNotEmpty()) {
-            weatherViewModel.loadWeather(city)
-            val view = this.currentFocus
-            view?.let {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                imm?.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-        } else {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Error")
-            builder.setMessage("Please enter a valid city.")
-            builder.setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-            }
-            builder.show()
+        val navHostFragment = binding.navHostFragment.getFragment<NavHostFragment>()
+        kotlin.runCatching {
+            navHostFragment.navController.graph =
+                navHostFragment.navController.navInflater.inflate(R.navigation.navigation_main)
         }
     }
 
-    private fun setUpObservers() {
-        weatherViewModel.weatherLiveData.observe(this) {
-            setResult(it)
-            Log.i("alalal","$it")
-        }
-
-        weatherViewModel.error.observe(this) {
-            Log.i("alalal",it)
-            binding.recyclerView.adapter = null
-            binding.progressBar.visibility = View.GONE
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        }
-
-        weatherViewModel.processing.observe(this) {
-            if (it) {
-                binding.progressBar.visibility = View.VISIBLE
-            } else {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun setResult(weathers: List<WeatherForDisplay>) {
-        binding.recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        listAdapter = RecycleViewAdaptor(weathers)
-        binding.recyclerView.adapter = listAdapter
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.weatherapiusingcoroutines.models.serviceModel
+package com.example.weatherapiusingcoroutines.models.response
 
 data class Weather(
     val description: String,

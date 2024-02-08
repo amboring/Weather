@@ -1,5 +1,7 @@
 package com.example.weatherapiusingcoroutines.models.serviceModel
 
+import com.example.weatherapiusingcoroutines.models.response.Weather
+
 data class TimeStamp(
     val clouds: Clouds?,
     val dt: Long?,

@@ -6,6 +6,8 @@ import com.example.weatherapiusingcoroutines.di.qualifier.ApplicationContext
 import com.example.weatherapiusingcoroutines.service.ApiService
 import com.example.weatherapiusingcoroutines.service.ApiServiceFactory
 import com.example.weatherapiusingcoroutines.service.Repository
+import com.example.weatherapiusingcoroutines.util.DatastoreManager
+import com.example.weatherapiusingcoroutines.util.DatastoreManagerImp
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,14 +28,20 @@ class ApplicationModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideService():ApiService{
+    fun provideService(): ApiService {
         return ApiServiceFactory.makeService()
     }
 
     @Provides
     @Singleton
-    fun provideRepository(service:ApiService):Repository{
+    fun provideRepository(service: ApiService): Repository {
         return Repository(service)
+    }
+
+    @Provides
+    @Singleton
+    fun getDatastoreManager(app: Application): DatastoreManager {
+        return DatastoreManagerImp(app)
     }
 
 }

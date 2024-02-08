@@ -4,4 +4,5 @@ import javax.inject.Qualifier
 
 
 @Qualifier
-@Retention annotation class ActivityContext
+@Retention
+annotation class ActivityContext

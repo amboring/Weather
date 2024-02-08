@@ -9,4 +9,7 @@
     <string name="high">High</string>
     <string name="Low">Low</string>
     <string name="et_city_hint">Enter Your City</string>
+
+    <string name="weather_icon">Weather Icon</string>
+    <string name="search_icon">Search Icon</string>
 </resources>

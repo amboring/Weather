@@ -5,6 +5,7 @@
     android:background="#72DAC8F1"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
+
     <TextView
         android:id="@+id/tv_date_title"
         android:text="@string/date"
@@ -14,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
@@ -22,6 +24,7 @@
         app:layout_constraintStart_toEndOf="@id/tv_temp_title"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="12sp" />
+
     <TextView
         android:id="@+id/tv_feels_like_title"
         android:layout_width="wrap_content"
@@ -31,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_date_title"
         android:text="@string/feels_like"
         android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_feels_like"
         android:layout_width="wrap_content"
@@ -49,6 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_feels_like_title"
         android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_humidity"
         android:layout_width="wrap_content"
@@ -67,6 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_humidity_title"
         android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_temp"
         android:layout_width="wrap_content"
@@ -85,6 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_temp_title"
         android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_temp_max"
         android:layout_width="wrap_content"
@@ -103,6 +110,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_temp_max_title"
         android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_temp_min"
         android:layout_width="wrap_content"

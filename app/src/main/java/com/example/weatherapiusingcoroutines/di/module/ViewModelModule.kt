@@ -6,8 +6,8 @@ import com.example.weatherapiusingcoroutines.di.ViewModelFactory
 import com.example.weatherapiusingcoroutines.di.qualifier.ViewModelKey
 import com.example.weatherapiusingcoroutines.viewmodel.LandingViewModel
 import com.example.weatherapiusingcoroutines.viewmodel.WeatherViewModel
-import dagger.Module
 import dagger.Binds
+import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module

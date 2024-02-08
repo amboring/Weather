@@ -4,13 +4,17 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapiusingcoroutines.service.Repository
 import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
+import com.example.weatherapiusingcoroutines.service.Repository
+import com.example.weatherapiusingcoroutines.util.DatastoreManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class WeatherViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class WeatherViewModel @Inject constructor(
+    private val repository: Repository,
+    private val datastoreManager: DatastoreManager
+) : ViewModel() {
     val weatherLiveData = MutableLiveData<List<WeatherForDisplay>>()
     val error = MutableLiveData<String>()
     val processing = MutableLiveData<Boolean>()
@@ -19,16 +23,17 @@ class WeatherViewModel @Inject constructor(private val repository: Repository) :
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 processing.postValue(true)
-                val list = repository.getWeather(city)
+                val list = repository.getWeatherList(city)
                 if (list.isEmpty()) {
                     error.postValue("No data found.")
                     return@launch
                 }
                 weatherLiveData.postValue(list)
+                datastoreManager.setUserLatestSearch(city)
                 processing.postValue(false)
 
             } catch (e: Exception) {
-                Log.i("alalal",e.message.orEmpty())
+                Log.i("alalal", e.message.orEmpty())
                 error.postValue(e.message)
                 e.printStackTrace()
                 processing.postValue(false)

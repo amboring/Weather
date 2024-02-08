@@ -1,16 +1,40 @@
 package com.example.weatherapiusingcoroutines.service
 
+import com.example.weatherapiusingcoroutines.models.state.LandingWeather
 import com.example.weatherapiusingcoroutines.models.state.WeatherForDisplay
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class Repository(private val apiService: ApiService) {
 
-    suspend fun getWeather(city: String): List<WeatherForDisplay> {
+    suspend fun getLatitudeWeather(lat: Double, lon: Double): LandingWeather? {
+        val response = apiService.getLatitudeWeather(lat, lon, id).body() ?: return null
+        return LandingWeather(
+            location = response?.name.orEmpty(),
+            weather = response?.weather?.filterNotNull() ?: listOf(),
+            temperature = response?.main
+        )
+    }
+
+    suspend fun getLocalWeather(city: String?): LandingWeather? {
+        if (city.isNullOrBlank()) {
+            return null
+        }
+        val response = apiService.getLocalWeather(city, id).body() ?: return null
+        return LandingWeather(
+            location = response?.name.orEmpty(),
+            weather = response?.weather?.filterNotNull() ?: listOf(),
+            temperature = response?.main
+        )
+    }
+
+    suspend fun getWeatherList(city: String): List<WeatherForDisplay> {
         if (city.isNullOrBlank()) {
             return listOf()
         }
-        val response = apiService.getWeather(city, id)
+
+        val response = apiService.getForecast(city, id)
         val result = mutableListOf<WeatherForDisplay>()
         if (response.isSuccessful) {
             val list = response.body()?.list
@@ -21,13 +45,14 @@ class Repository(private val apiService: ApiService) {
                     format.format(dateTime)
                 }.orEmpty()
 
-                val feelsLike = it?.main?.feels_like?.let { it - KCDifference}
+                val feelsLike = it?.main?.feels_like?.let { it - KCDifference }?.toInt()
                 val humidity = it?.main?.humidity
-                val temp = it?.main?.temp?.let {  it - KCDifference}
-                val tempMax = it?.main?.temp_max?.let {  it - KCDifference}
-                val tempMin = it?.main?.temp_min?.let {  it - KCDifference}
+                val temp = it?.main?.temp?.let { it - KCDifference }?.toInt()
+                val tempMax = it?.main?.temp_max?.let { it - KCDifference }?.toInt()
+                val tempMin = it?.main?.temp_min?.let { it - KCDifference }?.toInt()
+                val icon = it?.weather?.get(0)?.icon
                 result.add(
-                    WeatherForDisplay(date, feelsLike, humidity, temp, tempMax, tempMin)
+                    WeatherForDisplay(date, icon, feelsLike, humidity, temp, tempMax, tempMin)
                 )
             }
         }
